@@ -1,0 +1,132 @@
+Association
+-----------------
+
+	- I have a relationship with an object. Foo uses Bar
+
+	public class Foo 
+	{
+		void Baz(Bar bar) {} 
+	};
+
+	public class Bar
+	{
+
+	}
+
+
+
+
+Composition 
+-----------------
+ 	- I own an object and I am responsible for its lifetime, when Foo dies, so does Bar
+ 	- e.g., People and Leg
+
+	public class Foo 
+	{ 
+		private Bar bar = new Bar(); 
+	}
+
+
+	public class Bar
+	{
+
+	}
+
+
+
+Aggregation
+-----------------
+	- I have an object which I've borrowed from someone else. When Foo dies, Bar may live on.
+	- e.g., Building and Address
+
+	public class Foo 
+	{ 
+		private Bar bar; 
+
+		Foo(Bar bar) 
+		{
+			this.bar = bar; 
+		} 
+	}
+
+
+	public class Bar
+	{
+
+	}
+
+
+
+Dependency
+--------------------
+
+	sign   -------->
+
+
+	class A below uses class B in several ways:
+
+ 	class A
+ 	{	
+ 		public: B returns_a_B();
+ 		void has_a_B_argument(B); //method with arg B
+ 		void has_a_B_in_its_implementation(); // use B inside method
+ 	};
+
+
+
+Dependency Injection
+----------------------------
+
+	using System;
+
+
+	public class Program
+	{
+
+	    static void Main(string[] args)
+	    {
+	        Customer customer1 = new Customer(new BasicLogger());
+	        Customer customer2 = new Customer(new AdvancedLogger());
+
+	        customer1.WriteToLog("testing 1");
+	        customer2.WriteToLog("testing 2");
+
+	        Console.ReadKey();
+	    }
+	}
+
+	public class Customer
+	{
+	    ILogger Logger;
+
+	    public Customer(ILogger logger)
+	    {
+	        Logger = logger;
+	    }
+
+	    public void WriteToLog(string text)
+	    {
+	        Logger.WriteToLog(text);
+	    }
+	}
+
+	public interface ILogger // depen
+	{
+	    void WriteToLog(string text);
+	}
+
+	public class BasicLogger : ILogger
+	{
+	    public void WriteToLog(string text)
+	    {
+	        Console.WriteLine("BasicLogger {0}", text);
+	    }
+	}
+
+	public class AdvancedLogger : ILogger
+	{
+	    public void WriteToLog(string text)
+	    {
+	        Console.WriteLine("AdvancedLogger {0}", text);
+	    }
+	}
