@@ -77,6 +77,13 @@ Dependency
 Dependency Injection
 ----------------------------
 
+	Advantages
+
+		- Loose coupling
+		- Centralized configuration
+		- Easily testable
+
+
 	using System;
 
 
@@ -99,7 +106,7 @@ Dependency Injection
 	{
 	    ILogger Logger;
 
-	    public Customer(ILogger logger)
+	    public Customer(ILogger logger) // dependency injecttion
 	    {
 	        Logger = logger;
 	    }
@@ -110,7 +117,7 @@ Dependency Injection
 	    }
 	}
 
-	public interface ILogger // depen
+	public interface ILogger // dependency
 	{
 	    void WriteToLog(string text);
 	}
