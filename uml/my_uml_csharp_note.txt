@@ -1,3 +1,7 @@
+====================================
+  OOP, UML and C# 
+====================================
+
 Association
 -----------------
 
@@ -12,8 +16,6 @@ Association
 	{
 
 	}
-
-
 
 
 Composition 
@@ -84,6 +86,7 @@ Dependency Injection
 		- Easily testable
 
 
+
 	using System;
 
 
@@ -92,8 +95,8 @@ Dependency Injection
 
 	    static void Main(string[] args)
 	    {
-	        Customer customer1 = new Customer(new BasicLogger());
-	        Customer customer2 = new Customer(new AdvancedLogger());
+	        Customer customer1 = new Customer(new FileLogger());
+	        Customer customer2 = new Customer(new SQLLogger());
 
 	        customer1.WriteToLog("testing 1");
 	        customer2.WriteToLog("testing 2");
@@ -106,7 +109,7 @@ Dependency Injection
 	{
 	    ILogger Logger;
 
-	    public Customer(ILogger logger) // dependency injecttion
+	    public Customer(ILogger logger) //dependency inject through constructor
 	    {
 	        Logger = logger;
 	    }
@@ -122,18 +125,75 @@ Dependency Injection
 	    void WriteToLog(string text);
 	}
 
-	public class BasicLogger : ILogger
+	public class FileLogger : ILogger
 	{
 	    public void WriteToLog(string text)
 	    {
-	        Console.WriteLine("BasicLogger {0}", text);
+	        Console.WriteLine("FileLogger {0}", text);
 	    }
 	}
 
-	public class AdvancedLogger : ILogger
+	public class SQLLogger : ILogger
 	{
 	    public void WriteToLog(string text)
 	    {
-	        Console.WriteLine("AdvancedLogger {0}", text);
+	        Console.WriteLine("SQLLogger {0}", text);
 	    }
 	}
+
+
+Dependency vs Assoication
+-------------------------------	
+
+    http://nirajrules.wordpress.com/2011/07/15/association-vs-dependency-vs-aggregation-vs-composition/
+
+    Dependency
+
+	    class Die { public void Roll() { ... } }
+		class Player
+		{
+			public void TakeTurn(Die die) /*Look ma, I am dependent on Die and it's Roll method to do my work*/
+			{ 
+				die.Roll(); ... 
+			}
+		}
+
+
+	Association
+
+		class Asset { ... }
+		class Player 
+		{
+			Asset asset;
+			public Player(Assest purchasedAsset) { ... } /*Set the asset via Constructor or a setter*/
+		}		
+
+
+
+
+
+Reference
+1. 程式碼與 UML 類別_循序圖 的關係探討 (3)
+--------------------------------------------------------------------
+   http://kenming.blog.ithome.com.tw/category/296/510
+
+
+2. Difference between association, aggregation and composition
+-------------------------------------------------------------------- 
+  http://stackoverflow.com/questions/885937/difference-between-association-aggregation-and-composition
+
+
+
+3.设计模式基础:类及类关系的UML表示 
+--------------------------------------------------------------------- 
+ http://www.cnblogs.com/Roping/archive/2009/10/26/1590085.html
+
+
+4. UML help C# Design Principles
+----------------------------------------------------------------------
+  http://stackoverflow.com/questions/6215388/uml-help-c-sharp-design-principles/6215517#6215517
+
+
+5. Association, Aggregation, Composition, Abstraction, Generalization, Realization, Dependency
+----------------------------------------------------------------------
+ http://javapapers.com/oops/association-aggregation-composition-abstraction-generalization-realization-dependency/		
