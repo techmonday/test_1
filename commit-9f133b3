@@ -1,0 +1,42 @@
+commit 9f133b312d42f5621b2c1ea301292b5e2b6434d3
+Author: techmonday <tech.monday@gmail.com>
+Date:   Tue Feb 12 06:02:11 2013 -0800
+
+    update 2
+
+diff --git a/uml/my_uml_csharp_note.txt b/uml/my_uml_csharp_note.txt
+index 5230313..d1712db 100644
+--- a/uml/my_uml_csharp_note.txt
++++ b/uml/my_uml_csharp_note.txt
+@@ -77,6 +77,13 @@ Dependency
+ Dependency Injection
+ ----------------------------
+ 
++	Advantages
++
++		- Loose coupling
++		- Centralized configuration
++		- Easily testable
++
++
+ 	using System;
+ 
+ 
+@@ -99,7 +106,7 @@ Dependency Injection
+ 	{
+ 	    ILogger Logger;
+ 
+-	    public Customer(ILogger logger)
++	    public Customer(ILogger logger) // dependency injecttion
+ 	    {
+ 	        Logger = logger;
+ 	    }
+@@ -110,7 +117,7 @@ Dependency Injection
+ 	    }
+ 	}
+ 
+-	public interface ILogger // depen
++	public interface ILogger // dependency
+ 	{
+ 	    void WriteToLog(string text);
+ 	}
