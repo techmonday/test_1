@@ -69,6 +69,8 @@ namespace MvpAppConsole
 
     /// <summary>
     /// Gui Form
+    /// For Mocking Test Please read 
+    ///  http://coding.infoconex.com/post/(MVP)-Model-View-Presenter-Passive-View.aspx
     /// </summary>
     public class SampleView : Form, ISampleView
     {
