@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace MvpAppConsole
@@ -34,7 +35,7 @@ namespace MvpAppConsole
 
         public void LoadCustomerData(string customerId)
         {
-            view.Name = model.LoadData(customerId);
+            view.CustomerName = model.LoadData(customerId);
         }
     }
 
@@ -63,7 +64,7 @@ namespace MvpAppConsole
     public interface ISampleView
     {
         string Id { get; set; }
-        string Name { get; set; }
+        string CustomerName { get; set; }
     }
 
 
@@ -74,21 +75,36 @@ namespace MvpAppConsole
     /// </summary>
     public class SampleView : Form, ISampleView
     {
-        //declare Button, TextBox for Id, Name
-
         public string Id { get; set; }
-        public string Name { get; set; }
+        public string CustomerName { get { throw new NotImplementedException(); } set { txtBoxName.Text = value; } }
 
         SamplePresenter presenter;
 
+        TextBox txtBoxId, txtBoxName;
+        Button btnSearch;
+
+
         public SampleView()
         {
-            //create ui
-            //bind  Button to button1_Click
+            InitComponent();
             presenter = new SamplePresenter(this);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void InitComponent()
+        {
+            txtBoxId = new TextBox { Text = "", Size = new Size(150, 30), Location = new Point(40, 30) };
+            btnSearch = new Button { Text = "Search", Size = new Size(150, 30), Location = new Point(40, 80) };
+            txtBoxName = new TextBox { Text = "", Size = new Size(150, 30), Location = new Point(40, 130) };
+
+            this.Controls.Add(txtBoxId);
+            this.Controls.Add(btnSearch);
+            this.Controls.Add(txtBoxName);
+
+            btnSearch.Click += btnSearch_Click;
+        }
+
+
+        private void btnSearch_Click(object sender, EventArgs e)
         {
             presenter.LoadCustomerData(Id);
         }
